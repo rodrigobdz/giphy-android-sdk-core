@@ -21,6 +21,9 @@ allprojects {
     repositories {
         jcenter()
         maven {
+            url  "https://giphy.bintray.com/giphy-sdk"
+        }
+        maven {
             url  "http://giphy.bintray.com/giphy-sdk"
             credentials {
                 username hasProperty('bintray_user') ? bintray_user : System.getenv('bintray_user')
