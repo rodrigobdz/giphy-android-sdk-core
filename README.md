@@ -134,7 +134,7 @@ client.trending(MediaType.gif, null, null, null, new CompletionHandler<ListMedia
             }
         }
     }
-}
+});
 
 /// Trending Stickers
 client.trending(MediaType.sticker, null, null, null, new CompletionHandler<ListMediaResponse>() {
@@ -152,7 +152,7 @@ client.trending(MediaType.sticker, null, null, null, new CompletionHandler<ListM
             }
         }
     }
-}
+});
 ```
 
 ### Translate Endpoint
@@ -276,7 +276,7 @@ imp.gifsByIds(gifIds, new CompletionHandler<ListMediaResponse>() {
 ```
 
 ### Categories Endpoint
-Fetch Giphy categories 
+Fetch Giphy categories
 
 ```java
 /// Categories
@@ -295,15 +295,15 @@ client.categoriesForGifs(null, null, null, new CompletionHandler<ListCategoryRes
             }
         }
     }
-}
+});
 ```
 
 ### Subcategories Endpoint
-Get Subcategories for GIFs given a category. You will need this subcategory object to pull GIFs for this category. 
+Get Subcategories for GIFs given a category. You will need this subcategory object to pull GIFs for this category.
 
 ```java
 /// Categories
-client.subCategoriesForGifs("actions", null, null, new CompletionHandler<ListCategoryResponse>() {
+client.subCategoriesForGifs("actions", null, null, null, new CompletionHandler<ListCategoryResponse>() {
     @Override
     public void onComplete(ListCategoryResponse result, Throwable e) {
         if (result == null) {
@@ -318,7 +318,7 @@ client.subCategoriesForGifs("actions", null, null, new CompletionHandler<ListCat
             }
         }
     }
-}
+});
 ```
 
 ### Subcategory Content Endpoint
@@ -341,11 +341,11 @@ client.gifsByCategory("animals", "cats", null, null, new CompletionHandler<ListM
             }
         }
     }
-}
+});
 ```
 
 ### Term suggestions Endpoint
-Get term suggestions given a search term, or a substring. 
+Get term suggestions given a search term, or a substring.
 
 ```java
 /// Term suggestions
@@ -364,7 +364,7 @@ client.termSuggestions("come", new CompletionHandler<ListTermSuggestionResponse>
             }
         }
     }
-}
+});
 ```
 
 # CONTRIBUTING
