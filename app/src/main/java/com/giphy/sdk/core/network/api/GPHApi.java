@@ -201,5 +201,16 @@ public interface GPHApi {
     public Future stickersByPackId(@NonNull String packId,
                                    @Nullable Integer limit, @Nullable Integer offset,
                                    @NonNull final CompletionHandler<ListMediaResponse> completionHandler);
+
+    /**
+     * Gets all gifs for a channel id
+     * @param channelId The ID of the channel
+     * @param completionHandler
+     * @return
+     */
+    @NonNull
+    public Future channelContent(@NonNull String channelId, @Nullable MediaType mediaType,
+                                   @Nullable Integer limit, @Nullable Integer offset,
+                                   @NonNull final CompletionHandler<ListMediaResponse> completionHandler);
 }
 

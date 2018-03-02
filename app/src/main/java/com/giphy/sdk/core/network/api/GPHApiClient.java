@@ -323,6 +323,25 @@ public class GPHApiClient implements GPHApi {
     }
 
     @NonNull
+    @Override
+    public Future channelContent(@NonNull String channelId, @Nullable MediaType mediaType,
+                                 @Nullable Integer limit, @Nullable Integer offset,
+                                 @NonNull final CompletionHandler<ListMediaResponse> completionHandler) {
+        final Map<String, String> params = new HashMap<>();
+        params.put(API_KEY, apiKey);
+        if (limit != null) {
+            params.put("limit", limit.toString());
+        }
+        if (offset != null) {
+            params.put("offset", offset.toString());
+        }
+
+        return networkSessionImpl.queryStringConnection(Constants.SERVER_URL,
+                String.format(Constants.Paths.GIFS_BY_CHANNEL_ID, channelId, mediaTypeToEndpoint(mediaType)), HTTP_GET,
+                ListMediaResponse.class, params, null).executeAsyncTask(completionHandler);
+    }
+
+    @NonNull
     private String mediaTypeToEndpoint(@Nullable  MediaType type) {
         if (type == MediaType.sticker) {
             return "stickers";
