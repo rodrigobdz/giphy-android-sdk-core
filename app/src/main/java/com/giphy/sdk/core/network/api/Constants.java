@@ -31,5 +31,6 @@ public class Constants {
         public static final String STICKER_PACK_BY_ID = "v1/stickers/packs/%s";
         public static final String STICKER_PACK_CHILDREN = "v1/stickers/packs/%s/children";
         public static final String STICKERS_BY_PACK_ID = "v1/stickers/packs/%s/stickers";
+        public static final String GIFS_BY_CHANNEL_ID = "v1/channels/%s/%s";
     }
 }
