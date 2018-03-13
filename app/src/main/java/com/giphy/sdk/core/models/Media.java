@@ -71,6 +71,8 @@ public class Media implements Parcelable {
     private boolean isIndexable;
     @SerializedName("is_sticker")
     private boolean isSticker;
+    @SerializedName("bottle_data")
+    private BottleData bottleData;
 
     public Media() {}
 
@@ -113,6 +115,8 @@ public class Media implements Parcelable {
         isSticker = in.readByte() != 0;
 
         title = in.readString();
+
+        bottleData = in.readParcelable(BottleData.class.getClassLoader());
     }
 
     /**
@@ -339,6 +343,20 @@ public class Media implements Parcelable {
     }
 
     /**
+     * @return bottleData
+     */
+    public BottleData getBottleData() {
+        return bottleData;
+    }
+
+    /**
+     * @return tid
+     */
+    public String getTID() {
+        return bottleData != null ? bottleData.getTid() : null;
+    }
+
+    /**
      * Passed down the media id to the @images field and call postProcess function on @images field
      */
     public void postProcess() {
@@ -399,5 +417,7 @@ public class Media implements Parcelable {
         parcel.writeByte((byte) (isSticker ? 1 : 0));
 
         parcel.writeString(title);
+
+        parcel.writeParcelable(bottleData, i);
     }
 }
