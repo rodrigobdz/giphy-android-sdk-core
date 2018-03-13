@@ -9,11 +9,14 @@
 
 package com.giphy.sdk.core;
 
+import com.giphy.sdk.core.models.BottleData;
+import com.giphy.sdk.core.models.Media;
 import com.giphy.sdk.core.models.enums.MediaType;
 import com.giphy.sdk.core.network.api.CompletionHandler;
 import com.giphy.sdk.core.network.api.GPHApi;
 import com.giphy.sdk.core.network.api.GPHApiClient;
 import com.giphy.sdk.core.network.engine.ApiException;
+import com.giphy.sdk.core.network.engine.DefaultNetworkSession;
 import com.giphy.sdk.core.network.response.MediaResponse;
 
 import junit.framework.Assert;
@@ -123,6 +126,43 @@ public class GifByIdTest {
                 Assert.assertNotNull(e);
                 Assert.assertTrue(e instanceof ApiException);
                 Assert.assertNotNull(((ApiException)e).getErrorResponse());
+                lock.countDown();
+            }
+        });
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
+    }
+
+    /**
+     * Test bottle_data
+     * @throws Exception
+     */
+    @Test
+    public void testBottleData() throws Exception {
+        final CountDownLatch lock = new CountDownLatch(1);
+
+        imp.gifById("darAMUceRAs0w", new CompletionHandler<MediaResponse>() {
+            @Override
+            public void onComplete(MediaResponse result, Throwable e) {
+                Assert.assertNull(e);
+                Assert.assertNotNull(result);
+                Assert.assertNotNull(result.getData());
+
+                Assert.assertNotNull(result.getMeta());
+                Assert.assertTrue(result.getMeta().getStatus() == 200);
+                Assert.assertEquals(result.getMeta().getMsg(), "OK");
+                Assert.assertNotNull(result.getMeta().getResponseId());
+
+                BottleData bottleData = new BottleData();
+                bottleData.setTid("testtid");
+                result.getData().setBottleData(bottleData);
+
+                final String str1 = DefaultNetworkSession.GSON_INSTANCE.toJson(result.getData());
+                final Media obj1 = DefaultNetworkSession.GSON_INSTANCE.fromJson(str1, Media.class);
+                final String str2 = DefaultNetworkSession.GSON_INSTANCE.toJson(obj1);
+                Assert.assertEquals(str1, str2);
+                Assert.assertNotNull(obj1.getBottleData());
+                Assert.assertEquals(obj1.getBottleData().getTid(), bottleData.getTid());
+
                 lock.countDown();
             }
         });
