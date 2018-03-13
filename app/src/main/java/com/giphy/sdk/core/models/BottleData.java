@@ -11,6 +11,7 @@ package com.giphy.sdk.core.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.VisibleForTesting;
 
 public class BottleData implements Parcelable {
     private String tid;
@@ -30,6 +31,11 @@ public class BottleData implements Parcelable {
      */
     public String getTid() {
         return tid;
+    }
+
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    public void setTid(String tid) {
+        this.tid = tid;
     }
 
     public static final Creator<BottleData> CREATOR = new Creator<BottleData>() {

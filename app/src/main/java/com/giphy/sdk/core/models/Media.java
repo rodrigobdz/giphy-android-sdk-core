@@ -11,6 +11,7 @@ package com.giphy.sdk.core.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.VisibleForTesting;
 
 import com.giphy.sdk.core.models.enums.MediaType;
 import com.giphy.sdk.core.models.enums.RatingType;
@@ -347,6 +348,11 @@ public class Media implements Parcelable {
      */
     public BottleData getBottleData() {
         return bottleData;
+    }
+
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    public void setBottleData(BottleData bottleData) {
+        this.bottleData = bottleData;
     }
 
     /**
