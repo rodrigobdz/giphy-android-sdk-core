@@ -19,6 +19,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            def travisBuild = System.getenv("TRAVIS") == "true"
+            buildConfigField "boolean", "TRAVIS", travisBuild.toString()
+        }
+        debug {
+            def travisBuild = System.getenv("TRAVIS") == "true"
+            buildConfigField "boolean", "TRAVIS", travisBuild.toString()
         }
     }
     testOptions {
