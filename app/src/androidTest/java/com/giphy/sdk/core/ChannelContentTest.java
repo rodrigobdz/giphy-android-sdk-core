@@ -112,19 +112,19 @@ public class ChannelContentTest {
     public void testOffset() throws Exception {
         final CountDownLatch lock = new CountDownLatch(2);
 
-        imp.channelContent("1066", MediaType.gif, 30, 0, new CompletionHandler<ListMediaResponse>() {
+        imp.channelContent("1066", MediaType.gif, 7, 0, new CompletionHandler<ListMediaResponse>() {
             @Override
             public void onComplete(final ListMediaResponse result1, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result1);
-                Assert.assertTrue(result1.getData().size() == 30);
+                Assert.assertTrue(result1.getData().size() == 7);
 
-                imp.channelContent("1066", MediaType.gif, 30, 10, new CompletionHandler<ListMediaResponse>() {
+                imp.channelContent("1066", MediaType.gif, 4, 6, new CompletionHandler<ListMediaResponse>() {
                     @Override
                     public void onComplete(ListMediaResponse result2, Throwable e) {
                         Assert.assertNull(e);
                         Assert.assertNotNull(result2);
-                        Assert.assertTrue(result2.getData().size() == 30);
+                        Assert.assertTrue(result2.getData().size() == 4);
 
                         Utils.checkOffsetWorks(result1.getData(), result2.getData(), 1);
 
@@ -253,12 +253,12 @@ public class ChannelContentTest {
     public void testParcelable() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.channelContent("1066", MediaType.gif, 31, null, new CompletionHandler<ListMediaResponse>() {
+        imp.channelContent("1066", MediaType.gif, 7, null, new CompletionHandler<ListMediaResponse>() {
             @Override
             public void onComplete(ListMediaResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.getData().size() == 31);
+                Assert.assertTrue(result.getData().size() == 7);
 
                 Gson gson = new Gson();
                 for (Media media : result.getData()) {
@@ -285,12 +285,12 @@ public class ChannelContentTest {
     public void testJson() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.channelContent("1066", MediaType.gif, 31, null, new CompletionHandler<ListMediaResponse>() {
+        imp.channelContent("1066", MediaType.gif, 7, null, new CompletionHandler<ListMediaResponse>() {
             @Override
             public void onComplete(ListMediaResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.getData().size() == 31);
+                Assert.assertTrue(result.getData().size() == 7);
 
                 for (Media media : result.getData()) {
                     final String str1 = DefaultNetworkSession.GSON_INSTANCE.toJson(media);

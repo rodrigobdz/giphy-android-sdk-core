@@ -223,19 +223,19 @@ public class SearchTest {
     public void testOffset() throws Exception {
         final CountDownLatch lock = new CountDownLatch(2);
 
-        imp.search("cats", MediaType.gif, 30, 0, RatingType.pg, null, new CompletionHandler<ListMediaResponse>() {
+        imp.search("cats", MediaType.gif, 7, 0, RatingType.pg, null, new CompletionHandler<ListMediaResponse>() {
             @Override
             public void onComplete(final ListMediaResponse result1, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result1);
-                Assert.assertTrue(result1.getData().size() == 30);
+                Assert.assertTrue(result1.getData().size() == 7);
 
-                imp.search("cats", MediaType.gif, 30, 10, RatingType.pg, null, new CompletionHandler<ListMediaResponse>() {
+                imp.search("cats", MediaType.gif, 6, 4, RatingType.pg, null, new CompletionHandler<ListMediaResponse>() {
                     @Override
                     public void onComplete(ListMediaResponse result2, Throwable e) {
                         Assert.assertNull(e);
                         Assert.assertNotNull(result2);
-                        Assert.assertTrue(result2.getData().size() == 30);
+                        Assert.assertTrue(result2.getData().size() == 6);
 
                         Utils.checkOffsetWorks(result1.getData(), result2.getData(), 1);
 
@@ -392,12 +392,12 @@ public class SearchTest {
     public void testParcelable() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.search("hack", MediaType.gif, 100, null, null, null, new CompletionHandler<ListMediaResponse>() {
+        imp.search("hack", MediaType.gif, 7, null, null, null, new CompletionHandler<ListMediaResponse>() {
             @Override
             public void onComplete(ListMediaResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.getData().size() == 100);
+                Assert.assertTrue(result.getData().size() == 7);
 
                 Gson gson = new Gson();
                 for (Media media : result.getData()) {
@@ -424,12 +424,12 @@ public class SearchTest {
     public void testJson() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.search("hack", MediaType.gif, 100, null, null, null, new CompletionHandler<ListMediaResponse>() {
+        imp.search("hack", MediaType.gif, 7, null, null, null, new CompletionHandler<ListMediaResponse>() {
             @Override
             public void onComplete(ListMediaResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.getData().size() == 100);
+                Assert.assertTrue(result.getData().size() == 7);
 
                 for (Media media : result.getData()) {
                     final String str1 = DefaultNetworkSession.GSON_INSTANCE.toJson(media);
