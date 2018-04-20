@@ -23,3 +23,8 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-keepclassmembernames class com.giphy.sdk.core.models.** { *; }
+-keepclassmembernames class com.giphy.sdk.core.network.response.** { *; }
+-keepattributes *Annotation*
+-dontwarn com.giphy.sdk.core.**
