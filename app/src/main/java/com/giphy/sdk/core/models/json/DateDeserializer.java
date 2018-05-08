@@ -22,12 +22,18 @@ import java.util.Locale;
 
 public class DateDeserializer implements JsonDeserializer<Date> {
     private final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+    private final DateFormat dateFormatStories = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US);
+
     public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
             throws JsonParseException {
         Date date = null;
         try {
             date = dateFormat.parse(json.getAsJsonPrimitive().getAsString());
-        } catch (Exception e) { }
+        } catch (Exception e) {
+            try {
+                date = dateFormatStories.parse(json.getAsJsonPrimitive().getAsString());
+            } catch (Exception e2) { }
+        }
         return date;
     }
 }
