@@ -19,6 +19,10 @@ public class Pagination implements Parcelable {
     private int totalCount;
     private int count;
     private int offset;
+    @SerializedName("next_page")
+    private String nextPage;
+    @SerializedName("next_cursor")
+    private String nextCursor;
 
     public Pagination() {}
 
@@ -26,6 +30,8 @@ public class Pagination implements Parcelable {
         totalCount = in.readInt();
         count = in.readInt();
         offset = in.readInt();
+        nextPage = in.readString();
+        nextCursor = in.readString();
     }
 
     /**
@@ -47,6 +53,21 @@ public class Pagination implements Parcelable {
      */
     public int getOffset() {
         return offset;
+    }
+
+
+    /**
+     * @return next page of results
+     */
+    public String getNextPage() {
+        return nextPage;
+    }
+
+    /**
+     * @return a cursor pointing to the next page of results
+     */
+    public String getNextCursor() {
+        return nextCursor;
     }
 
     public static final Creator<Pagination> CREATOR = new Creator<Pagination>() {
@@ -71,5 +92,7 @@ public class Pagination implements Parcelable {
         parcel.writeInt(totalCount);
         parcel.writeInt(count);
         parcel.writeInt(offset);
+        parcel.writeString(nextPage);
+        parcel.writeString(nextCursor);
     }
 }
