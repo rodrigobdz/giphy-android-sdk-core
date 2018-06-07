@@ -131,24 +131,4 @@ public class TranslateTest {
         });
         lock.await(Utils.MEDIUM_DELAY, TimeUnit.MILLISECONDS);
     }
-
-    /**
-     * Test no results tag
-     * @throws Exception
-     */
-    @Test
-    public void testNoResult() throws Exception {
-        final CountDownLatch lock = new CountDownLatch(1);
-
-        imp.translate("tttttttttt", MediaType.gif, RatingType.pg, LangType.english, new CompletionHandler<MediaResponse>() {
-            @Override
-            public void onComplete(MediaResponse result, Throwable e) {
-                Assert.assertNull(result);
-                Assert.assertNotNull(e);
-
-                lock.countDown();
-            }
-        });
-        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
-    }
 }
