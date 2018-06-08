@@ -46,6 +46,8 @@ public class User implements Parcelable {
     private String websiteUrl;
     @SerializedName("website_display_url")
     private String websiteDisplayUrl;
+    @SerializedName("is_verified")
+    private boolean isVerified;
 
     public User() {}
 
@@ -68,6 +70,7 @@ public class User implements Parcelable {
         suppressChrome = in.readByte() != 0;
         websiteUrl = in.readString();
         websiteDisplayUrl = in.readString();
+        isVerified = in.readByte() != 0;
     }
 
     /**
@@ -200,6 +203,14 @@ public class User implements Parcelable {
         return websiteDisplayUrl;
     }
 
+    public boolean getVerified() {
+        return isVerified;
+    }
+
+    public void setVerified(boolean verified) {
+        isVerified = verified;
+    }
+
     public static final Creator<User> CREATOR = new Creator<User>() {
         @Override
         public User createFromParcel(Parcel in) {
@@ -237,5 +248,6 @@ public class User implements Parcelable {
         parcel.writeByte((byte) (suppressChrome ? 1 : 0));
         parcel.writeString(websiteUrl);
         parcel.writeString(websiteDisplayUrl);
+        parcel.writeByte((byte) (isVerified ? 1 : 0));
     }
 }
