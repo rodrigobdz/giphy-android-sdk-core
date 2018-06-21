@@ -13,13 +13,17 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.VisibleForTesting;
 
+import java.util.List;
+
 public class BottleData implements Parcelable {
     private String tid;
+    private List<String> tags;
 
     public BottleData() {}
 
     public BottleData(final Parcel in) {
         tid = in.readString();
+        tags = in.createStringArrayList();
     }
 
     public BottleData(String tid) {
@@ -33,9 +37,21 @@ public class BottleData implements Parcelable {
         return tid;
     }
 
+    /**
+     * @return list of tags
+     */
+    public List<String> getTags() {
+        return tags;
+    }
+
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     public void setTid(String tid) {
         this.tid = tid;
+    }
+
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    public void setTags(List<String> tags) {
+        this.tags = tags;
     }
 
     public static final Creator<BottleData> CREATOR = new Creator<BottleData>() {
@@ -58,5 +74,6 @@ public class BottleData implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(tid);
+        parcel.writeStringList(tags);
     }
 }

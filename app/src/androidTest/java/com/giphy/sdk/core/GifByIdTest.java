@@ -25,6 +25,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.net.HttpURLConnection;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -153,7 +155,12 @@ public class GifByIdTest {
                 Assert.assertNotNull(result.getMeta().getResponseId());
 
                 BottleData bottleData = new BottleData();
+                List<String> tags = new ArrayList<>();
+                tags.add("https://test1.giphy.com");
+                tags.add("https://test2.giphy.com");
+                tags.add("https://test3.giphy.com");
                 bottleData.setTid("testtid");
+                bottleData.setTags(tags);
                 result.getData().setBottleData(bottleData);
 
                 final String str1 = DefaultNetworkSession.GSON_INSTANCE.toJson(result.getData());
